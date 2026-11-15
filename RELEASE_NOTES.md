@@ -18,3 +18,13 @@ reproducibility documentation. Added the standard MIT `LICENSE` file and
 updated `CITATION.cff` and the README accordingly. The licence does not cover
 the third-party dataset, which is not redistributed. The repository URL and DOI
 remain unspecified until the public GitHub/Zenodo deposit is completed.
+
+
+## Version 1.0.2 metadata preparation
+
+This documentation-only update records the public GitHub repository URL and
+Zenodo concept DOI in `CITATION.cff` and the README. It does not alter the
+primary analysis implementation, experimental outputs, or recorded
+reproduction evidence. The concept DOI identifies all archived versions;
+the Version 1.0.1 record has the version-specific DOI
+https://doi.org/10.5281/zenodo.24250897.

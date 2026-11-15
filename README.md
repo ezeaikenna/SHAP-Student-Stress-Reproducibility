@@ -169,5 +169,8 @@ reproducibility documentation in this repository are released under the MIT
 Licence; see `LICENSE`. This licence does not apply to third-party datasets,
 which are not redistributed here. Obtain the dataset from its original provider,
 check the provider's current terms, and comply with any separate restrictions
-on dataset access, reuse, or redistribution. A repository URL and DOI will be
-added to the citation metadata after the public GitHub/Zenodo deposit.
+on dataset access, reuse, or redistribution. The public GitHub repository is available at
+https://github.com/ezeaikenna/SHAP-Student-Stress-Reproducibility. The
+Zenodo concept DOI covering all archived versions is
+https://doi.org/10.5281/zenodo.24250742. The version-specific DOI for
+Version 1.0.1 is https://doi.org/10.5281/zenodo.24250897.
