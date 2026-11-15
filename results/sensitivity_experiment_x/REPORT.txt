@@ -1,0 +1,93 @@
+BLOOD-PRESSURE FEATURE-EXCLUSION SENSITIVITY ANALYSIS
+
+Dataset: StressLevelDataset.csv
+Rows: 1100; predictors: 20; classes: {0: 373, 1: 358, 2: 369}
+Seed: 20261009; stratified holdout: 80/20; 5-fold stratified CV on training partition.
+Conditions use the same train/test indices, CV folds, six model definitions, and preprocessing pipelines.
+Holdout bootstrap CI uses paired resampling of the same test cases (2,000 resamples).
+SHAP: Logistic Regression in each condition; same held-out row positions and background row positions; 5 perturbation repeats at each 5%, 10%, and 20% corruption level.
+Target provenance remains unverified; feature exclusion cannot establish whether the target was generated using blood pressure.
+Noise procedure is synthetic perturbation, not a calibrated measurement-error model.
+
+CROSS-VALIDATION (sorted within condition):
+             condition              model  test_macro_f1_mean  test_accuracy_mean  test_balanced_accuracy_mean  test_macro_f1_sd  test_accuracy_sd  test_balanced_accuracy_sd
+        all_predictors LogisticRegression            0.882985            0.882955                     0.883126          0.018273          0.018235                   0.018054
+        all_predictors         ExtraTrees            0.877852            0.877273                     0.877299          0.020644          0.020721                   0.020766
+        all_predictors       DecisionTree            0.874684            0.875000                     0.874947          0.009910          0.010630                   0.010527
+        all_predictors       RandomForest            0.874333            0.873864                     0.873950          0.012691          0.012957                   0.012972
+        all_predictors            SVM_RBF            0.869957            0.869318                     0.869327          0.010267          0.010630                   0.010519
+        all_predictors                MLP            0.858047            0.857955                     0.857986          0.020477          0.020088                   0.019892
+without_blood_pressure       RandomForest            0.877247            0.877273                     0.877320          0.006592          0.006478                   0.006596
+without_blood_pressure            SVM_RBF            0.871891            0.871591                     0.871550          0.017141          0.017327                   0.017267
+without_blood_pressure LogisticRegression            0.867936            0.868182                     0.868451          0.021517          0.021030                   0.020964
+without_blood_pressure         ExtraTrees            0.864769            0.864773                     0.864830          0.016343          0.016759                   0.016660
+without_blood_pressure       DecisionTree            0.864665            0.864773                     0.865021          0.037831          0.037774                   0.037485
+without_blood_pressure                MLP            0.860900            0.860227                     0.861012          0.012638          0.013081                   0.013269
+
+HELD-OUT PERFORMANCE:
+             condition              model  accuracy  balanced_accuracy  macro_f1  macro_precision  macro_recall  roc_auc_ovr_macro  log_loss
+        all_predictors LogisticRegression  0.890909           0.890641  0.891205         0.893849      0.890641           0.985125  0.242741
+        all_predictors            SVM_RBF  0.872727           0.872497  0.873379         0.876709      0.872497           0.984380  0.260533
+        all_predictors       RandomForest  0.886364           0.886386  0.886885         0.887754      0.886386           0.985721  0.196479
+        all_predictors         ExtraTrees  0.895455           0.895395  0.895768         0.897619      0.895395           0.986665  0.193505
+        all_predictors                MLP  0.890909           0.890766  0.890731         0.891073      0.890766           0.977432  0.351960
+        all_predictors       DecisionTree  0.895455           0.895395  0.896372         0.899031      0.895395           0.922364  3.777652
+without_blood_pressure LogisticRegression  0.881818           0.881632  0.881607         0.881743      0.881632           0.973073  0.330021
+without_blood_pressure            SVM_RBF  0.868182           0.868118  0.868481         0.869532      0.868118           0.984257  0.259734
+without_blood_pressure       RandomForest  0.881818           0.881757  0.882052         0.882715      0.881757           0.984313  0.203887
+without_blood_pressure         ExtraTrees  0.895455           0.895270  0.895747         0.897233      0.895270           0.985372  0.201994
+without_blood_pressure                MLP  0.859091           0.859610  0.859934         0.869315      0.859610           0.925686  0.486157
+without_blood_pressure       DecisionTree  0.872727           0.872623  0.872914         0.874189      0.872623           0.915660  4.111623
+
+PAIRED HOLDOUT DIFFERENCES (all predictors minus without blood_pressure):
+             model  macro_f1_all  macro_f1_without_bp  delta_macro_f1_all_minus_without_bp  paired_bootstrap_95ci_low  paired_bootstrap_95ci_high  delta_balanced_accuracy  delta_log_loss_all_minus_without_bp  delta_roc_auc
+LogisticRegression      0.891205             0.881607                             0.009598                  -0.011950                    0.031489                 0.009009                            -0.087280       0.012052
+           SVM_RBF      0.873379             0.868481                             0.004898                  -0.009268                    0.020496                 0.004379                             0.000799       0.000124
+      RandomForest      0.886885             0.882052                             0.004833                  -0.033148                    0.044455                 0.004630                            -0.007408       0.001408
+        ExtraTrees      0.895768             0.895747                             0.000020                  -0.030342                    0.031692                 0.000125                            -0.008489       0.001293
+               MLP      0.890731             0.859934                             0.030797                  -0.015288                    0.077682                 0.031156                            -0.134197       0.051747
+      DecisionTree      0.896372             0.872914                             0.023457                  -0.012665                    0.059658                 0.022773                            -0.333971       0.006704
+
+SHAP IMPORTANCE:
+             condition                      feature  mean_abs_shap  rank_descending
+        all_predictors               blood_pressure       1.708690                1
+        all_predictors               social_support       0.757419                2
+        all_predictors teacher_student_relationship       0.290127                3
+        all_predictors                   study_load       0.207528                4
+        all_predictors        mental_health_history       0.202166                5
+        all_predictors                  self_esteem       0.202110                6
+        all_predictors                  noise_level       0.170357                7
+        all_predictors                  basic_needs       0.162339                8
+        all_predictors                     headache       0.156888                9
+        all_predictors                       safety       0.154549               10
+        all_predictors         academic_performance       0.138863               11
+        all_predictors                     bullying       0.135959               12
+        all_predictors                sleep_quality       0.133685               13
+        all_predictors   extracurricular_activities       0.127411               14
+        all_predictors                   depression       0.123293               15
+        all_predictors            breathing_problem       0.067823               16
+        all_predictors       future_career_concerns       0.042769               17
+        all_predictors            living_conditions       0.042193               18
+        all_predictors                peer_pressure       0.038631               19
+        all_predictors                anxiety_level       0.027855               20
+without_blood_pressure               social_support       0.622964                1
+without_blood_pressure                       safety       0.368197                2
+without_blood_pressure                  self_esteem       0.330721                3
+without_blood_pressure teacher_student_relationship       0.303260                4
+without_blood_pressure                   study_load       0.280435                5
+without_blood_pressure         academic_performance       0.275827                6
+without_blood_pressure                     headache       0.241287                7
+without_blood_pressure                  noise_level       0.237567                8
+without_blood_pressure                   depression       0.236096                9
+without_blood_pressure                  basic_needs       0.220568               10
+without_blood_pressure                     bullying       0.210922               11
+without_blood_pressure                sleep_quality       0.203900               12
+without_blood_pressure   extracurricular_activities       0.196388               13
+without_blood_pressure        mental_health_history       0.142683               14
+without_blood_pressure                anxiety_level       0.120640               15
+without_blood_pressure            breathing_problem       0.079566               16
+without_blood_pressure                peer_pressure       0.070747               17
+without_blood_pressure       future_career_concerns       0.046121               18
+without_blood_pressure            living_conditions       0.028608               19
+
+Elapsed seconds: 26.4

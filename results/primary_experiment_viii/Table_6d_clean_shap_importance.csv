@@ -1,0 +1,21 @@
+﻿model,condition,feature,feature_label,mean_abs_shap,rank
+LogisticRegression,clean,blood_pressure,Blood pressure,1.7865342713212269,1
+LogisticRegression,clean,social_support,Social support,0.721351108942125,2
+LogisticRegression,clean,teacher_student_relationship,Teacher–student relationship,0.2402617135930823,3
+LogisticRegression,clean,mental_health_history,Mental-health history,0.204843547701982,4
+LogisticRegression,clean,basic_needs,Basic needs,0.1638747813116631,5
+LogisticRegression,clean,self_esteem,Self-esteem,0.1587051772847395,6
+LogisticRegression,clean,study_load,Study load,0.1565352415018683,7
+LogisticRegression,clean,headache,Headache,0.1473605955976583,8
+LogisticRegression,clean,noise_level,Noise level,0.133613357761939,9
+LogisticRegression,clean,safety,Safety,0.1319271405781649,10
+LogisticRegression,clean,bullying,Bullying,0.1273419783885597,11
+LogisticRegression,clean,extracurricular_activities,Extracurricular activities,0.1234545783163307,12
+LogisticRegression,clean,academic_performance,Academic performance,0.122645787184014,13
+LogisticRegression,clean,sleep_quality,Sleep quality,0.1116858521473208,14
+LogisticRegression,clean,depression,Depression,0.1023283154724242,15
+LogisticRegression,clean,breathing_problem,Breathing problem,0.0649885636264475,16
+LogisticRegression,clean,living_conditions,Living conditions,0.0399951051633201,17
+LogisticRegression,clean,peer_pressure,Peer pressure,0.0381125538393226,18
+LogisticRegression,clean,future_career_concerns,Future-career concerns,0.0369003311918029,19
+LogisticRegression,clean,anxiety_level,Anxiety level,0.0217893184177655,20

@@ -1,0 +1,6 @@
+# General install list. For the recorded 11 Nov 2026 reproduction use:
+# pip install -r requirements-execution.txt
+-r requirements-execution.txt
+openpyxl
+python-docx
+jupyter

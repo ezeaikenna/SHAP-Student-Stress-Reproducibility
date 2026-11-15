@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use these reproducibility materials, please cite the associated research article when its publication details are available."
+title: "SHAP Student-Stress Reproducibility Repository"
+version: 1.0.0
+authors:
+  - family-names: Ezea
+    given-names: Leonard Ikenna
+
+license: MIT
+# Repository URL and DOI will be added after the public GitHub/Zenodo deposit.
