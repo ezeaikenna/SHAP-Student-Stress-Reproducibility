@@ -13,22 +13,21 @@ the scope and provenance of the analyses.
   feature-specific perturbation seed procedure.
 - Provides execution metadata, saved outputs and independent reproduction
   records for the primary, supplementary diagnostic, blood-pressure
-  sensitivity and extended corruption/global SHAP analyses. All five
-  regenerated CSV outputs from the extended analysis matched their saved
-  references byte-for-byte.
+  sensitivity and extended corruption/global SHAP analyses. In the recorded
+  validation, all five regenerated CSV outputs matched their saved reference
+  outputs exactly when compared as dataframes; this statement does not imply
+  byte-for-byte identity of the CSV files.
 - Excludes `StressLevelDataset.csv` because it is a third-party dataset whose
   redistribution terms have not been established by this project. Users
   obtain the dataset from its original source and are responsible for
   complying with the provider's terms.
-- Retains the LF-normalised SHA-256 checksum of the dataset used in the
-  recorded analyses so that users can check the identity of their local copy.
+- Retains the SHA-256 checksum of the dataset used in the recorded analyses
+  so that users can check the identity of their local copy.
 - Includes a SHA-256 manifest for the files in this source distribution.
 
 ### Scientific scope and limitations
 
-The extended corruption and global SHAP analysis is included in the
-independent reproduction comparison. The release does not establish the original
-target-label generation procedure
+The release does not establish the original target-label generation procedure
 or the substantive meanings of the `blood_pressure` codes. Excluding that
 predictor does not establish the absence of target leakage. The extended
 perturbations are synthetic, SHAP stability is global rather than
@@ -52,10 +51,8 @@ in this ZIP source distribution.
 Zenodo concept DOI (all versions):
 https://doi.org/10.5281/zenodo.24250742
 
-The version-specific DOI is assigned when this version is deposited in
-Zenodo. Cite the version-specific DOI shown on the deposited record.
+Version-specific DOI for Version 1.0.4:
+https://doi.org/10.5281/zenodo.24381007
 
-## Previous deposited release
-
-The previous version-specific record is available at:
-https://doi.org/10.5281/zenodo.24267796
+Cite the version-specific DOI when referring specifically to Version 1.0.4.
+Use the concept DOI when referring to the repository across versions.
