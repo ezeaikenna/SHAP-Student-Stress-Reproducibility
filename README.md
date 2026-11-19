@@ -1,119 +1,119 @@
 # SHAP Student-Stress Reproducibility Repository
 
-This repository contains the primary Version 4 analysis implementation, a
-separate blood-pressure feature-exclusion sensitivity analysis, supplementary
-Decision Tree diagnostic material, saved results, and records from a successful
-full reproduction run completed on 11 November 2026.
+This repository provides the analysis scripts, saved results, computational
+environment information, and execution records supporting the study of
+machine-learning robustness and SHAP explanation stability in student-stress
+prediction.
 
-## Research scope and analysis lineage
+## Analysis components
 
-The primary analysis is implemented by the Experiment VIII Version 4 script.
-The blood-pressure feature-exclusion analysis (Experiment X) is a separate
-sensitivity analysis. Experiment IX is included only as a supplementary
-Decision Tree case-level diagnostic. These analyses are kept separate because
-the Experiment IX log-loss clipping convention differs from that used in the
-primary Version 4 implementation.
+1. **Primary analysis:** evaluates six classifiers, predictive performance,
+   robustness to synthetic input corruption, feature ablation, and global SHAP
+   explanation stability for the Logistic Regression model selected using
+   cross-validation on the training partition.
+2. **Blood-pressure feature-exclusion sensitivity analysis:** evaluates the
+   effect of excluding `blood_pressure` on predictive performance and SHAP
+   summaries.
+3. **Diagnostic-run reproduction:** preserves a separate archived run of the
+   broad six-model workflow. One retained supplementary output is the Decision
+   Tree case-level probability and log-loss table. This diagnostic run uses a
+   different probability-clipping convention for that case-level calculation,
+   so those log-loss values are reported separately.
 
-## Repository structure
+## Repository contents
 
-- `scripts/primary/`: primary Version 4 analysis script.
-- `scripts/sensitivity/`: original and path-portable blood-pressure
-  feature-exclusion scripts.
-- `scripts/diagnostics/`: supplementary Decision Tree diagnostic script.
-- `results/primary_experiment_viii/`: primary analysis tables, figures,
-  confusion matrices and workbook.
-- `results/sensitivity_experiment_x/`: sensitivity-analysis results and report.
-- `results/diagnostics_experiment_ix/`: supplementary case-level diagnostic.
-- `reproduction_evidence/`: run manifest, console log, output records,
-  reference-output comparison and generated outputs from the 11 November 2026 run.
-- `data/`: dataset access and verification instructions.
-- `environment/`: recorded software environment.
+- `scripts/primary/`: primary analysis implementation.
+- `scripts/sensitivity/`: blood-pressure feature-exclusion sensitivity analysis.
+- `scripts/diagnostics/`: archived diagnostic-run reproduction, including the Decision Tree case-probability output.
+- `scripts/archive/`: exact historical primary and diagnostic scripts retained for provenance checks.
+- `results/primary_analysis/`: primary analysis tables, figures, confusion
+  matrices, and workbook.
+- `results/blood_pressure_sensitivity/`: sensitivity-analysis results and report.
+- `results/decision_tree_diagnostic/`: the retained Decision Tree case-level probability CSV and its output description; this is a selected diagnostic output, not the complete output set of the broader diagnostic run.
+- `reproduction_evidence/`: execution record, output verification, reference
+  output comparison, and saved outputs.
+- `environment/`: computational environment information.
 - `requirements.txt` and `requirements-execution.txt`: package dependencies.
 
 ## Dataset
 
-The analysis uses `StressLevelDataset.csv`, described as containing 1,100
-observations, 20 predictors and the `stress_level` target. The dataset is not
-redistributed in this repository.
+The study uses `StressLevelDataset.csv`, comprising 1,100 observations,
+20 predictors, and the `stress_level` target. The dataset is not redistributed
+in this repository.
 
-The dataset download page used for this study is:
+Original dataset source:
 https://www.kaggle.com/datasets/samyakb/student-stress-factors
 
 Obtain the dataset from its source and review the source's current terms before
-reuse. Place `StressLevelDataset.csv` in the repository root or supply its path
-with `--csv`. Verify the downloaded file against the SHA-256 value in the
-reproduction manifest before treating it as the same input used in the recorded run.
+reuse. Place `StressLevelDataset.csv` in the repository root or provide its
+location with `--csv`. The manifest records the SHA-256 checksum of the
+dataset used in the recorded execution.
 
-The original target-label generation procedure and substantive meanings of the `blood_pressure` codes were not independently established. These limitations
-constrain interpretation of the observed predictive relationships.
+The original target-label generation procedure and substantive meanings of
+the `blood_pressure` codes were not independently established. These
+uncertainties limit interpretation of the observed predictive relationships.
 
-## Primary analysis: Version 4
-
-Reference implementation:
-
-`scripts/primary/stress_robustness_experiment_v4_release.py`
+## Reproducing the primary analysis
 
 Run from the repository root:
 
 ```bash
-python scripts/primary/stress_robustness_experiment_v4_release.py \
+python scripts/primary/primary_stress_robustness_analysis.py \
   --csv StressLevelDataset.csv \
-  --outdir results/reproduced_experiment_viii
+  --outdir results/primary_analysis_reproduced
 ```
 
-For a full reproduction, do not use `--fast` or `--skip-shap`.
-The `--shap-all-models` option changes the explanation scope and should not be
-used to reproduce the manuscript's Logistic-Regression-only SHAP analysis.
+For the full analysis, do not use `--fast` or `--skip-shap`. The
+`--shap-all-models` option changes the explanation scope and should not be
+used to reproduce the manuscript's SHAP analysis, which focuses on the
+training-CV-selected Logistic Regression model.
 
 ## Blood-pressure feature-exclusion sensitivity analysis
 
-The original script is preserved at:
-
-`scripts/sensitivity/blood_pressure_sensitivity_analysis_original.py`
-
-It uses fixed `/mnt/data/` paths from its original execution environment.
-For a user-specified dataset and output directory, use the path-portable
-derivative:
+Run:
 
 ```bash
-python scripts/sensitivity/blood_pressure_sensitivity_analysis_portable.py \
+python scripts/sensitivity/blood_pressure_sensitivity_analysis.py \
   --csv StressLevelDataset.csv \
-  --outdir results/reproduced_experiment_x
+  --outdir results/blood_pressure_sensitivity_reproduced
 ```
 
-The path-portable derivative changes path handling and output archive location.
-It has been syntax-checked but was not rerun as part of the 11 November 2026
-Version 4 reproduction. Its outputs should therefore be treated as the saved
-sensitivity-analysis results, not as a newly reproduced execution of that
-derivative.
+## Diagnostic-run reproduction and retained Decision Tree output
 
-## Supplementary Decision Tree diagnostic
-
-Experiment IX provides a case-level Decision Tree probability/log-loss
-diagnostic. Its clipping convention differs from the primary Version 4
-implementation. It is retained separately and must not be combined with or
-substituted for the primary Version 4 outputs without a documented
-methodological reason.
-
-The diagnostic script accepts an explicit dataset path through `--csv` and an
-output directory through `--outdir`. From the repository root, run:
+Run:
 
 ```bash
-python scripts/diagnostics/experiment_ix_diagnostic_script.py \
+python scripts/diagnostics/decision_tree_probability_diagnostic.py \
   --csv StressLevelDataset.csv \
-  --outdir results/reproduced_experiment_ix
+  --outdir results/decision_tree_diagnostic_reproduced
 ```
 
-If `--csv` is omitted, the script checks several default locations, including
-paths from its original execution environment. Supplying `--csv` is therefore
-recommended on Windows, macOS and Linux. The script writes its generated files
-to the directory specified by `--outdir`. This diagnostic is supplementary;
-it is not the primary manuscript analysis, and its log-loss clipping convention
-must remain distinct from the primary Version 4 implementation.
+The diagnostic script reproduces a broader six-model diagnostic run; it is
+not a Decision-Tree-only pipeline. The repository currently retains one
+selected supplementary output from that run:
+`results/decision_tree_diagnostic/decision_tree_test_case_probabilities.csv`.
+This CSV contains case-level Decision Tree predicted probabilities and
+case-level log-loss values; it should not be mistaken for the complete output
+set of the diagnostic run.
 
-## Recorded computational environment
+For this case-level calculation, diagnostic probabilities are clipped using
+machine epsilon, whereas the primary analysis uses a 1e-15 lower bound.
+Consequently, the two runs' case-level log-loss values are not directly
+interchangeable. The exact historical primary and diagnostic scripts are
+retained under `scripts/archive/`; their SHA-256 checksums are recorded in the
+reproduction manifest.
 
-The successful full Version 4 run recorded:
+| Aspect | Primary analysis | Diagnostic run |
+|---|---|---|
+| Scope | Six-model performance, robustness, feature ablation and SHAP analysis | Broad six-model diagnostic workflow |
+| Retained script | `scripts/primary/primary_stress_robustness_analysis.py` | `scripts/diagnostics/decision_tree_probability_diagnostic.py` |
+| Retained historical script | `scripts/archive/primary_analysis_historical_execution.py` | `scripts/archive/diagnostic_analysis_historical_execution.py` |
+| Distinguishing detail | Primary case-level probability clipping uses a 1e-15 lower bound | Decision Tree case-level probability diagnostic uses machine-epsilon clipping |
+| Available saved outputs | Primary analysis outputs under `results/primary_analysis/` | Selected case-probability CSV under `results/decision_tree_diagnostic/` |
+
+## Computational environment
+
+The recorded analysis environment used:
 
 - Python 3.13.16
 - NumPy 2.4.6
@@ -123,54 +123,64 @@ The successful full Version 4 run recorded:
 - Matplotlib 3.10.0
 - SHAP 0.54.1
 
-The platform and complete run metadata are recorded in
-`reproduction_evidence/version4_full_reproduction_2026-11-11/reproduction_manifest.json`.
-The pinned package versions are listed in `requirements-execution.txt`.
-The recorded environment does not imply bit-identical results on every platform.
+Further platform and run metadata are recorded in
+`reproduction_evidence/full_reproduction_2026-11-11/reproduction_manifest.json`.
+Pinned package versions are listed in `requirements-execution.txt`.
 
-## Output naming and legacy filenames
+## Execution record
 
-Some output filenames retain the names emitted by the checksum-verified
-Version 4 implementation, including `table_1_data_audit.csv`. In this context,
-the file reports dataset characteristics and data checks; the filename does
-not refer to an internal manuscript or peer-review audit. The primary script
-and its output filenames are preserved to maintain consistency with the
-recorded reproduction evidence.
+The recorded full analysis used a stratified 80:20 train/test split, with
+five-fold stratified cross-validation restricted to the training partition.
+The held-out test set was not used for model selection. The archived output
+comparison documents numerical agreement with reference outputs; this is not
+external validation. The scripts write `shap_errors.csv` as a diagnostic record
+of SHAP computation failures (including an empty file when no failures occur);
+it is an execution-status log, not a model-performance result.
 
-## Reproduction record
 
-The full Version 4 run exited successfully, and the run record indicates that
-the core outputs and SHAP stability outputs were generated. The reference-output
-comparison contains 12 comparisons with zero absolute difference. This is
-numerical agreement with the archived reference outputs, not external validation.
+## Independent execution audit
 
-Model selection was based on stratified cross-validation using the training
-partition. The held-out test set was not used to select the model. Logistic
-Regression was the training-CV-selected model used for the SHAP analysis.
+On 19 November 2026, the primary analysis, diagnostic-run reproduction, and
+blood-pressure sensitivity scripts each completed successfully using the
+dataset whose LF-normalised SHA-256 checksum matches the recorded manifest.
+The regenerated numerical tables matched the archived reference outputs;
+the four primary figures were pixel-identical. The primary case-level
+Decision Tree log-loss values retain the documented difference in probability
+clipping convention. Full details, including the runtime-version qualification
+and output-by-output comparisons, are provided in
+`reproduction_evidence/independent_execution_audit_2026-11-19/`.
+
+The independent execution used a runtime whose package versions differ from
+the historical pinned environment. It therefore verifies successful execution
+and output consistency in the tested environment, not recreation of the exact
+historical software environment.
 
 ## Interpretation and limitations
 
 - The dataset-specific results do not establish clinical validity.
-- No external validation was performed.
+- External validation was not performed.
 - The target-label generation procedure remains unverified.
-- The observed association involving `blood_pressure` does not by itself prove
-  target leakage; feature exclusion also cannot establish whether the target
-  was generated using that variable.
-- Corruption levels are probabilities under the implemented perturbation
-  protocol, not calibrated real-world measurement-error magnitudes.
+- The observed association involving `blood_pressure` does not by itself
+  establish target leakage.
+- Corruption levels are probabilities under the implemented synthetic
+  perturbation procedure, not calibrated real-world measurement-error levels.
 - SHAP results are global descriptive summaries for the selected Logistic
   Regression model. They are not causal explanations or participant-level
   stability estimates.
 
-## Citation, licence and data reuse
+## Citation and licence
 
 Citation metadata is provided in `CITATION.cff`. The code and accompanying
-reproducibility documentation in this repository are released under the MIT
-Licence; see `LICENSE`. This licence does not apply to third-party datasets,
-which are not redistributed here. Obtain the dataset from its original provider,
-check the provider's current terms, and comply with any separate restrictions
-on dataset access, reuse, or redistribution. The public GitHub repository is available at
-https://github.com/ezeaikenna/SHAP-Student-Stress-Reproducibility. The
-Zenodo concept DOI covering all archived versions is
-https://doi.org/10.5281/zenodo.24250742. The version-specific DOI for
-Version 1.0.1 is https://doi.org/10.5281/zenodo.24250897.
+reproducibility documentation are released under the MIT Licence; see
+`LICENSE`. The licence does not apply to the third-party dataset, which is
+not redistributed here. Dataset access and reuse remain subject to the
+provider's terms.
+
+GitHub repository:
+https://github.com/ezeaikenna/SHAP-Student-Stress-Reproducibility
+
+Zenodo concept DOI (all versions):
+https://doi.org/10.5281/zenodo.24250742
+
+Zenodo version-specific DOI (Version 1.0.2):
+https://doi.org/10.5281/zenodo.24267796

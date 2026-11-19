@@ -1,0 +1,29 @@
+Data: (1100, 21); train=880, test=220; features=20
+CV and fit: LogisticRegression
+CV and fit: SVM_RBF
+CV and fit: RandomForest
+CV and fit: ExtraTrees
+CV and fit: MLP
+CV and fit: DecisionTree
+SHAP model scope: LogisticRegression (selected using training-only CV)
+SHAP stability: LogisticRegression
+
+=== CV SUMMARY ===
+              model  cv_macro_f1_mean  cv_macro_f1_sd
+LogisticRegression          0.882985        0.018273
+        ExtraTrees          0.877852        0.020644
+      DecisionTree          0.874684        0.009910
+      RandomForest          0.874333        0.012691
+           SVM_RBF          0.869957        0.010267
+               MLP          0.858047        0.020477
+
+=== HELD-OUT TEST SUMMARY ===
+              model  macro_f1  macro_f1_ci95_low  macro_f1_ci95_high
+      DecisionTree  0.896372           0.854691            0.933842
+        ExtraTrees  0.895768           0.856192            0.935227
+LogisticRegression  0.891205           0.850478            0.930675
+               MLP  0.890731           0.849227            0.927438
+      RandomForest  0.886885           0.843000            0.926972
+           SVM_RBF  0.873379           0.830722            0.917205
+
+Analysis completed; generated outputs are included in this archive.

@@ -1,0 +1,7 @@
+Analysis output verification
+Core outputs: PASS
+Missing core outputs: None
+SHAP stability outputs: PASS
+
+Target-label provenance was not independently verified.
+External validation and clinical validation were not performed.
