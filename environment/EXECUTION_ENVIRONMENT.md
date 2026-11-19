@@ -13,4 +13,4 @@ The recorded analysis environment used:
 
 Pinned package versions are listed in `requirements-execution.txt`.
 The full execution metadata is recorded in
-`reproduction_evidence/full_reproduction_2026-11-11/reproduction_manifest.json`.
+`reproducibility_records/primary_analysis_2026-11-11/reproduction_manifest.json`.

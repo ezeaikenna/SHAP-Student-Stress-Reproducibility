@@ -1,0 +1,27 @@
+SUPPLEMENTARY ANALYSIS RECORD
+
+Analysis: full supplementary reproduction of the saved six-model workflow
+Dataset: StressLevelDataset.csv (not redistributed)
+Observations: 1,100
+Predictors: 20
+Target: stress_level
+Random seed: 20261009
+Train/test split: stratified 80:20; one fixed held-out test set
+Cross-validation: stratified five-fold on training data only
+Models: Logistic Regression, RBF-SVM, Random Forest, Extra Trees, MLP, Decision Tree
+Input-corruption analysis: 10 independent perturbation repeats at 5%, 10%, and 20%
+Bootstrap: 1,000 resamples for held-out macro-F1 intervals
+Feature ablation: one predictor removed at a time; each model retrained and evaluated on the same holdout
+SHAP stability: common background and fixed explanation sample for the training-CV-selected model; five repeats per non-zero corruption level
+Target-label provenance: not independently verified
+External validation: not performed
+Clinical validity: not established
+
+The corruption levels are probabilities under the implemented synthetic
+perturbation procedure, not calibrated real-world measurement-error
+magnitudes. Model selection uses training-only cross-validation; held-out test
+performance is not used for model selection.
+
+The recorded execution generated the result files listed in
+`generated_output_inventory.csv`. Elapsed runtime in the execution manifest
+was approximately 49 seconds.

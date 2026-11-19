@@ -1,4 +1,4 @@
-﻿cv_rank,model,cv_accuracy_mean,cv_balanced_accuracy_mean,cv_macro_f1_mean,cv_accuracy_sd,cv_balanced_accuracy_sd,cv_macro_f1_sd,model_label,cv_macro_f1_mean_sd
+cv_rank,model,cv_accuracy_mean,cv_balanced_accuracy_mean,cv_macro_f1_mean,cv_accuracy_sd,cv_balanced_accuracy_sd,cv_macro_f1_sd,model_label,cv_macro_f1_mean_sd
 1,LogisticRegression,0.8829545454545453,0.8831259035959274,0.8829852836303967,0.0182350074271377,0.0180537707312801,0.0182727045000071,Logistic regression,0.883 ± 0.018
 2,ExtraTrees,0.8772727272727273,0.8772987651282893,0.8778520348877132,0.0207211165100118,0.0207657526429586,0.0206442041845527,Extra Trees,0.878 ± 0.021
 3,DecisionTree,0.875,0.8749473479139109,0.8746843736233337,0.0106297084851532,0.0105274304657205,0.0099096658142653,Decision tree,0.875 ± 0.010

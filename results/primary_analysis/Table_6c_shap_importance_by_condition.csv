@@ -1,4 +1,4 @@
-﻿model,condition,feature,feature_label,mean_abs_shap
+model,condition,feature,feature_label,mean_abs_shap
 LogisticRegression,clean,academic_performance,Academic performance,0.122645787184014
 LogisticRegression,clean,anxiety_level,Anxiety level,0.0217893184177655
 LogisticRegression,clean,basic_needs,Basic needs,0.1638747813116631

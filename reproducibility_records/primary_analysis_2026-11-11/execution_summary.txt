@@ -1,0 +1,5 @@
+Execution summary
+
+The analysis run generated its expected core result tables and figures. The accompanying output inventory identifies the files produced by the run.
+
+Dataset target-label provenance was not independently verified. External validation was not performed, and clinical validity was not established.

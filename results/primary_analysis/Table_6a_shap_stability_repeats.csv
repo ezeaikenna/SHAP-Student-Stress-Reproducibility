@@ -1,4 +1,4 @@
-﻿model,noise_level,repeat,spearman_rank_correlation,kendall_rank_correlation,importance_cosine_similarity,top_5_overlap,model_label
+model,noise_level,repeat,spearman_rank_correlation,kendall_rank_correlation,importance_cosine_similarity,top_5_overlap,model_label
 LogisticRegression,0.05,1,0.9894736842105262,0.9473684210526316,0.9998910860674426,1.0,Logistic regression
 LogisticRegression,0.05,2,0.9954887218045112,0.9789473684210528,0.9993916869408974,0.8,Logistic regression
 LogisticRegression,0.05,3,0.9984962406015038,0.9894736842105264,0.9998159113413084,1.0,Logistic regression

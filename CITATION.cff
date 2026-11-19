@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use these reproducibility materials, please cite the associated research article when its publication details are available."
 title: "SHAP Student-Stress Reproducibility Repository"
-version: 1.0.3
+version: 1.0.4
 doi: 10.5281/zenodo.24250742
 url: https://github.com/ezeaikenna/SHAP-Student-Stress-Reproducibility
 authors:

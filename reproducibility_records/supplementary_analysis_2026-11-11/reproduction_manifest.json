@@ -1,0 +1,21 @@
+{
+  "run_type": "Supplementary analysis reproduction",
+  "script_file": "reproducibility_records/historical_source_snapshots/supplementary_primary_analysis_reference.py",
+  "script_sha256": "160bc7b4289e44a0d7318333ec35992e9b21db5494c900846174d892c97dc547",
+  "source_csv": "StressLevelDataset.csv",
+  "source_csv_sha256": "14a45e92708b0c063ad4ab04563aa8fd4e3fc27157fd282e1c0658dc5161faed",
+  "environment": {
+    "python": "3.13.16 (main, Oct  1 2026, 15:40:24) [GCC 13.3.0]",
+    "platform": "Linux-6.6.159+-x86_64-with-glibc2.39",
+    "numpy": "2.4.6",
+    "pandas": "2.2.3",
+    "scipy": "1.16.3",
+    "scikit_learn": "1.6.1",
+    "matplotlib": "3.10.0",
+    "shap": "0.54.1"
+  },
+  "elapsed_seconds": 49.444957971572876,
+  "script_exit_code": 0,
+  "output_status": "The core analysis outputs and SHAP stability outputs were generated. Target-label provenance remains unverified; external validation was not performed.",
+  "run_timestamp_utc": "2026-11-11T04:27:29.828511+00:00"
+}

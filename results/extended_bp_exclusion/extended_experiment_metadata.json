@@ -1,0 +1,43 @@
+{
+  "experiment": "Extended paired corruption and global SHAP stability with/without blood_pressure",
+  "dataset": "StressLevelDataset.csv",
+  "dataset_sha256_lf": "14a45e92708b0c063ad4ab04563aa8fd4e3fc27157fd282e1c0658dc5161faed",
+  "seed_split": 20261009,
+  "split": "stratified 80:20; fixed Version 1.0.3 split",
+  "train_n": 880,
+  "test_n": 220,
+  "background_n": 100,
+  "shap_explanation_n": 220,
+  "shap_repetitions_per_level": 20,
+  "corruption_levels": [
+    0.05,
+    0.1,
+    0.2
+  ],
+  "models": [
+    "LogisticRegression",
+    "SVM_RBF",
+    "RandomForest",
+    "ExtraTrees",
+    "MLP",
+    "DecisionTree"
+  ],
+  "shap_model": "LogisticRegression in both conditions; fixed model family",
+  "perturbation": "per-feature Bernoulli selection; <=12 unique training values replaced by another training category; >12 unique values receive Gaussian noise with SD=level*training SD and clipping to training min/max",
+  "paired_corruption_seeds": "stable feature-specific seed; shared predictors receive identical perturbations across conditions",
+  "background_sampling": "100 training rows without replacement; same row positions in both conditions",
+  "explanation_rows": "all held-out observations",
+  "runtime": {
+    "python": "3.13.5",
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit_learn": "1.8.0",
+    "shap": "0.50.0"
+  },
+  "limitations": [
+    "Synthetic corruption only",
+    "One fixed train/test partition",
+    "Global, not participant-level, SHAP stability",
+    "Feature exclusion does not resolve target provenance or prove absence of leakage"
+  ]
+}

@@ -1,0 +1,14 @@
+output_file,included,availability
+table_1_dataset_characteristics.csv,yes,included
+table_target_distribution.csv,yes,included
+table_2_cross_validation.csv,yes,included
+table_3_test_performance.csv,yes,included
+table_4_noise_robustness_repeats.csv,yes,included
+table_4_noise_robustness_summary.csv,yes,included
+table_5_retrained_feature_ablation.csv,yes,included
+table_5b_top_ablation_features.csv,yes,included
+figure_1_cv_macro_f1.png,yes,included
+figure_2_test_macro_f1.png,yes,included
+figure_3_noise_robustness.png,yes,included
+figure_4_feature_ablation.png,yes,included
+table_6_shap_explanation_stability.csv,yes,included

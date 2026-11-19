@@ -335,7 +335,7 @@ def main():
     output_checks.append({'output': 'table_6_shap_explanation_stability.csv',
                           'exists': shap_table.exists(),
                           'status': ('PASS' if shap_rows_valid else ('SKIPPED_BY_USER' if args.skip_shap else 'INCOMPLETE_OR_FAILED'))})
-    pd.DataFrame(output_checks).to_csv(out / 'table_7_output_verification.csv', index=False)
+    pd.DataFrame(output_checks).to_csv(out / 'generated_output_inventory.csv', index=False)
     missing_core = [r['output'] for r in output_checks if r['output'] != 'table_6_shap_explanation_stability.csv' and not r['exists']]
     shap_status = 'PASS' if shap_rows_valid else ('SKIPPED_BY_USER' if args.skip_shap else 'INCOMPLETE_OR_FAILED')
     (out / 'OUTPUT_STATUS.txt').write_text(
@@ -343,12 +343,12 @@ def main():
         + f'Core outputs: {"PASS" if not missing_core else "FAIL"}\n'
         + f'Missing core outputs: {missing_core if missing_core else "None"}\n'
         + f'SHAP stability: {shap_status}\n'
-        + 'A successful script exit alone does not imply SHAP succeeded. Check this file and table_7_output_verification.csv.\n'
+        + 'A successful script exit alone does not imply SHAP succeeded. Check this file and generated_output_inventory.csv.\n'
         + ('Reduced-computation exploratory run: these outputs are not the full study results.\n' if args.fast else '')
         + 'Target label provenance remains unverified; external validation not performed.\n', encoding='utf-8')
 
     # Manifest / interpretation guardrails
-    notes=f'''ANALYSIS EXECUTION DETAILS\nSource CSV: {csv_path}\nRows: {len(df)}; features: {X.shape[1]}; target: {target}\nSeed: {SEED}\nTrain/test: stratified 80/20; one fixed held-out test set\nCV: stratified 5-fold on training data only\nModels: {', '.join(models.keys())}\nNoise robustness: {n_noise} independent perturbation repeats per level, levels={NOISE_LEVELS}\nBootstrap: {n_boot} bootstrap resamples for test macro-F1 intervals\nFeature ablation: remove one feature, retrain each model, evaluate on the same holdout\nSHAP stability: common background and fixed explanation sample for {'all models' if args.shap_all_models else 'the training-CV-selected model'}; {n_shap} repeats per nonzero noise level; compare rank correlation, cosine similarity, and top-5 overlap\nTarget provenance verified: NO\nExternal validation: NOT PERFORMED\nClinical validity: NOT ESTABLISHED\nInterpretation: noise levels are corruption probabilities for low-cardinality integer-coded features, not calibrated measurement-error magnitudes.\nImportant: do not select the final model based on held-out test performance; use training-only CV for model selection and report the holdout once.\nRun mode: {'REDUCED-COMPUTATION EXPLORATORY RUN' if args.fast else 'FULL'}\nOutput verification: see table_7_output_verification.csv and OUTPUT_STATUS.txt\nElapsed seconds: {time.time()-started:.1f}\n'''
+    notes=f'''ANALYSIS EXECUTION DETAILS\nSource CSV: {csv_path}\nRows: {len(df)}; features: {X.shape[1]}; target: {target}\nSeed: {SEED}\nTrain/test: stratified 80/20; one fixed held-out test set\nCV: stratified 5-fold on training data only\nModels: {', '.join(models.keys())}\nNoise robustness: {n_noise} independent perturbation repeats per level, levels={NOISE_LEVELS}\nBootstrap: {n_boot} bootstrap resamples for test macro-F1 intervals\nFeature ablation: remove one feature, retrain each model, evaluate on the same holdout\nSHAP stability: common background and fixed explanation sample for {'all models' if args.shap_all_models else 'the training-CV-selected model'}; {n_shap} repeats per nonzero noise level; compare rank correlation, cosine similarity, and top-5 overlap\nTarget provenance verified: NO\nExternal validation: NOT PERFORMED\nClinical validity: NOT ESTABLISHED\nInterpretation: noise levels are corruption probabilities for low-cardinality integer-coded features, not calibrated measurement-error magnitudes.\nImportant: do not select the final model based on held-out test performance; use training-only CV for model selection and report the holdout once.\nRun mode: {'REDUCED-COMPUTATION EXPLORATORY RUN' if args.fast else 'FULL'}\nOutput verification: see generated_output_inventory.csv and OUTPUT_STATUS.txt\nElapsed seconds: {time.time()-started:.1f}\n'''
     (out/'RUN_NOTES.txt').write_text(notes,encoding='utf-8')
     # zip all outputs
     zip_path=out.with_suffix('.zip')
